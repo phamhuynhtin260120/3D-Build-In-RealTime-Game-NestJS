@@ -1,18 +1,29 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using SocketIOClient;
 using SocketIOClient.Newtonsoft.Json;
 
 public class GameClient : MonoBehaviour
 {
-    public Transform player;
+    [Header("Connection")]
+    public string serverUrl = "http://localhost:3000";
+    public string playerName = "UnityPlayer";
+    public string roomId = "arena-1";
+
+    [Header("World")]
+    public GameObject playerPrefab;
+    public float positionScale = 50f;
 
     private SocketIOUnity socket;
-    private Vector3 targetPosition;
+    private readonly Dictionary<string, GameObject> players = new Dictionary<string, GameObject>();
+
+    private WorldState latestState;
+    private readonly object stateLock = new object();
 
     void Start()
     {
-        var uri = new Uri("http://localhost:3000?name=UnityPlayer");
+        var uri = new Uri(serverUrl + "?name=" + playerName);
 
         socket = new SocketIOUnity(uri, new SocketIOOptions
         {
@@ -24,40 +35,68 @@ public class GameClient : MonoBehaviour
         socket.OnConnected += (sender, e) =>
         {
             Debug.Log("Connected to game server: " + socket.Id);
+
+            socket.Emit("joinRoom", new JoinRoomInput
+            {
+                roomId = roomId,
+                name = playerName
+            });
         };
 
-        socket.On("pong", response =>
+        socket.On("roomJoined", response =>
         {
-            Debug.Log("Pong from server: " + response);
+            var data = response.GetValue<RoomJoinedResponse>();
+            Debug.Log("Joined room: " + data.roomId);
         });
 
         socket.On("worldUpdate", response =>
         {
             var state = response.GetValue<WorldState>();
 
-            foreach (var serverPlayer in state.players)
+            Debug.Log("Room: " + state.roomId + " | Players: " + state.players.Length);
+
+            lock (stateLock)
             {
-                if (serverPlayer.id == socket.Id)
-                {
-                    targetPosition = new Vector3(
-                        serverPlayer.position.x / 50f,
-                        0,
-                        serverPlayer.position.y / 50f
-                    );
-                }
+                latestState = state;
             }
         });
+
+        socket.On("pong", response =>
+        {
+            Debug.Log("Pong from server: " + response);
+        });
+
+        socket.OnDisconnected += (sender, reason) =>
+        {
+            Debug.Log("Disconnected from server: " + reason);
+        };
 
         socket.Connect();
     }
 
     void Update()
     {
-        if (socket == null || !socket.Connected)
+        if (socket != null && socket.Connected)
         {
-            return;
+            HandleInput();
         }
 
+        WorldState stateToRender = null;
+
+        lock (stateLock)
+        {
+            stateToRender = latestState;
+            latestState = null;
+        }
+
+        if (stateToRender != null)
+        {
+            RenderWorldState(stateToRender);
+        }
+    }
+
+    private void HandleInput()
+    {
         if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
         {
             socket.Emit("move", new MoveInput { direction = "up" });
@@ -82,10 +121,34 @@ public class GameClient : MonoBehaviour
         {
             socket.Emit("ping", new { message = "hello from Unity" });
         }
+    }
 
-        if (player != null)
+    private void RenderWorldState(WorldState state)
+    {
+        if (playerPrefab == null)
         {
-            player.position = Vector3.Lerp(player.position, targetPosition, Time.deltaTime * 12f);
+            Debug.LogError("Player Prefab is not assigned in Inspector.");
+            return;
+        }
+
+        foreach (var serverPlayer in state.players)
+        {
+            if (!players.ContainsKey(serverPlayer.id))
+            {
+                Debug.Log("Spawning player: " + serverPlayer.name);
+
+                var obj = Instantiate(playerPrefab);
+                obj.name = "Player_" + serverPlayer.name;
+                players.Add(serverPlayer.id, obj);
+            }
+
+            var unityPosition = new Vector3(
+                serverPlayer.position.x / positionScale,
+                0,
+                serverPlayer.position.y / positionScale
+            );
+
+            players[serverPlayer.id].transform.position = unityPosition;
         }
     }
 
@@ -103,8 +166,16 @@ public class MoveInput
 }
 
 [Serializable]
+public class JoinRoomInput
+{
+    public string roomId;
+    public string name;
+}
+
+[Serializable]
 public class WorldState
 {
+    public string roomId;
     public int tick;
     public PlayerState[] players;
 }
@@ -115,6 +186,8 @@ public class PlayerState
     public string id;
     public string name;
     public PositionState position;
+    public int hp;
+    public string status;
 }
 
 [Serializable]
@@ -122,4 +195,11 @@ public class PositionState
 {
     public float x;
     public float y;
+}
+
+[Serializable]
+public class RoomJoinedResponse
+{
+    public string roomId;
+    public PlayerState player;
 }
