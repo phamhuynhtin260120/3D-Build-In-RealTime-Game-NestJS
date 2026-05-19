@@ -1,52 +1,125 @@
 using System;
 using UnityEngine;
+using SocketIOClient;
+using SocketIOClient.Newtonsoft.Json;
 
 public class GameClient : MonoBehaviour
 {
-    public SocketIOUnity socket;
+    public Transform player;
+
+    private SocketIOUnity socket;
+    private Vector3 targetPosition;
 
     void Start()
     {
-        // 1. Cấu hình URL server (Nhớ dùng http thay vì ws, thư viện sẽ tự chuyển)
-        var uri = new Uri("http://localhost:3000");
-        socket = new SocketIOUnity(uri);
+        var uri = new Uri("http://localhost:3000?name=UnityPlayer");
 
-        // 2. Gửi dữ liệu lúc "bắt tay" (handshake) như chúng ta đã học
-        socket.Options.Query = new System.Collections.Generic.Dictionary<string, string>
+        socket = new SocketIOUnity(uri, new SocketIOOptions
         {
-            { "name", "UnityPlayer_Zen" }
+            Transport = SocketIOClient.Transport.TransportProtocol.WebSocket
+        });
+
+        socket.JsonSerializer = new NewtonsoftJsonSerializer();
+
+        socket.OnConnected += (sender, e) =>
+        {
+            Debug.Log("Connected to game server: " + socket.Id);
         };
 
-        // 3. Kết nối
-        socket.Connect();
-
-        // 4. Lắng nghe dữ liệu từ Server (worldUpdate)
-        socket.OnUnityThread("worldUpdate", (data) => {
-            // data ở đây chính là chuỗi JSON chứa tick và players
-            Debug.Log("Nhận dữ liệu thế giới: " + data);
-            // Tại đây bạn sẽ viết code để cập nhật vị trí nhân vật trên màn hình 3D
+        socket.On("pong", response =>
+        {
+            Debug.Log("Pong from server: " + response);
         });
+
+        socket.On("worldUpdate", response =>
+        {
+            var state = response.GetValue<WorldState>();
+
+            foreach (var serverPlayer in state.players)
+            {
+                if (serverPlayer.id == socket.Id)
+                {
+                    targetPosition = new Vector3(
+                        serverPlayer.position.x / 50f,
+                        0,
+                        serverPlayer.position.y / 50f
+                    );
+                }
+            }
+        });
+
+        socket.Connect();
     }
 
     void Update()
     {
-        // Ví dụ: Bấm phím D để gửi lệnh sang phải
-        if (Input.GetKeyDown(KeyCode.D))
+        if (socket == null || !socket.Connected)
         {
-            // Lưu ý: Gửi đúng định dạng JSON mà Server của bạn đang chờ
-            socket.Emit("move", "{\"direction\":\"right\"}");
+            return;
         }
-        if (Input.GetKeyDown(KeyCode.A))
+
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
         {
-            socket.Emit("move", "{\"direction\":\"left\"}");
+            socket.Emit("move", new MoveInput { direction = "up" });
         }
-        if (Input.GetKeyDown(KeyCode.W))
+
+        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
         {
-            socket.Emit("move", "{\"direction\":\"up\"}");
+            socket.Emit("move", new MoveInput { direction = "down" });
         }
-        if (Input.GetKeyDown(KeyCode.S))
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
         {
-            socket.Emit("move", "{\"direction\":\"down\"}");
+            socket.Emit("move", new MoveInput { direction = "left" });
+        }
+
+        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
+        {
+            socket.Emit("move", new MoveInput { direction = "right" });
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            socket.Emit("ping", new { message = "hello from Unity" });
+        }
+
+        if (player != null)
+        {
+            player.position = Vector3.Lerp(player.position, targetPosition, Time.deltaTime * 12f);
         }
     }
+
+    void OnDestroy()
+    {
+        socket?.Disconnect();
+        socket?.Dispose();
+    }
+}
+
+[Serializable]
+public class MoveInput
+{
+    public string direction;
+}
+
+[Serializable]
+public class WorldState
+{
+    public int tick;
+    public PlayerState[] players;
+}
+
+[Serializable]
+public class PlayerState
+{
+    public string id;
+    public string name;
+    public PositionState position;
+}
+
+[Serializable]
+public class PositionState
+{
+    public float x;
+    public float y;
 }
