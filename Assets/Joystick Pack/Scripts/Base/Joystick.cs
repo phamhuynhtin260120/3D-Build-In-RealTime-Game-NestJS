@@ -21,7 +21,7 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
         set { deadZone = Mathf.Abs(value); }
     }
 
-    public AxisOptions AxisOptions { get { return AxisOptions; } set { axisOptions = value; } }
+    public AxisOptions AxisOptions { get { return axisOptions; } set { axisOptions = value; } }
     public bool SnapX { get { return snapX; } set { snapX = value; } }
     public bool SnapY { get { return snapY; } set { snapY = value; } }
 
@@ -55,6 +55,12 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
         handle.anchorMax = center;
         handle.pivot = center;
         handle.anchoredPosition = Vector2.zero;
+    }
+
+    public void Configure(RectTransform background, RectTransform handle)
+    {
+        this.background = background;
+        this.handle = handle;
     }
 
     public virtual void OnPointerDown(PointerEventData eventData)
