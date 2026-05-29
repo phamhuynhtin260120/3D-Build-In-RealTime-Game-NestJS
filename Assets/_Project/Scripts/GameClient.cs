@@ -15,7 +15,8 @@ public class GameClient : MonoBehaviour
 
     [Header("World")]
     public GameObject playerPrefab;
-    public float positionScale = 50f;
+    public GameObject spawnPointPrefab;
+    public float positionScale = 1f;
     public float smoothingSpeed = 12f;
 
     [Header("Camera")]
@@ -28,7 +29,9 @@ public class GameClient : MonoBehaviour
     public bool createRuntimeJoystick = true;
 
     private SocketIOUnity socket;
+
     private readonly Dictionary<string, PlayerView> players = new Dictionary<string, PlayerView>();
+    private readonly Dictionary<string, GameObject> spawnPointObjects = new Dictionary<string, GameObject>();
 
     private WorldState latestState;
     private readonly object stateLock = new object();
@@ -193,9 +196,44 @@ public class GameClient : MonoBehaviour
 
     private void RenderWorldState(WorldState state)
     {
+        RenderSpawnPoints(state);
+        RenderPlayers(state);
+    }
+
+    private void RenderSpawnPoints(WorldState state)
+    {
+        if (spawnPointPrefab == null || state.spawnPoints == null)
+        {
+            return;
+        }
+
+        foreach (var spawnPoint in state.spawnPoints)
+        {
+            Vector3 unityPosition = ToUnityPosition(spawnPoint.position);
+
+            if (!spawnPointObjects.ContainsKey(spawnPoint.id))
+            {
+                var obj = Instantiate(spawnPointPrefab, unityPosition, Quaternion.identity);
+                obj.name = "SpawnPoint_" + spawnPoint.id;
+                spawnPointObjects.Add(spawnPoint.id, obj);
+            }
+            else
+            {
+                spawnPointObjects[spawnPoint.id].transform.position = unityPosition;
+            }
+        }
+    }
+
+    private void RenderPlayers(WorldState state)
+    {
         if (playerPrefab == null)
         {
             Debug.LogError("Player Prefab is not assigned in Inspector.");
+            return;
+        }
+
+        if (state.players == null)
+        {
             return;
         }
 
@@ -259,7 +297,14 @@ public class GameClient : MonoBehaviour
         Canvas canvas = FindObjectOfType<Canvas>();
         if (canvas == null)
         {
-            GameObject canvasObject = new GameObject("Mobile Controls Canvas", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
+            GameObject canvasObject = new GameObject(
+                "Mobile Controls Canvas",
+                typeof(RectTransform),
+                typeof(Canvas),
+                typeof(CanvasScaler),
+                typeof(GraphicRaycaster)
+            );
+
             canvas = canvasObject.GetComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
 
@@ -274,7 +319,13 @@ public class GameClient : MonoBehaviour
             new GameObject("EventSystem", typeof(EventSystem), typeof(StandaloneInputModule));
         }
 
-        GameObject root = new GameObject("Runtime Joystick", typeof(RectTransform), typeof(Image), typeof(FixedJoystick));
+        GameObject root = new GameObject(
+            "Runtime Joystick",
+            typeof(RectTransform),
+            typeof(Image),
+            typeof(FixedJoystick)
+        );
+
         root.transform.SetParent(canvas.transform, false);
 
         RectTransform rootRect = root.GetComponent<RectTransform>();
@@ -288,8 +339,21 @@ public class GameClient : MonoBehaviour
         rootImage.color = Color.clear;
         rootImage.raycastTarget = true;
 
-        RectTransform background = CreateJoystickCircle("Background", rootRect, new Vector2(180f, 180f), 280f, new Color(1f, 1f, 1f, 0.22f));
-        RectTransform handle = CreateJoystickCircle("Handle", background, Vector2.zero, 120f, new Color(1f, 1f, 1f, 0.65f));
+        RectTransform background = CreateJoystickCircle(
+            "Background",
+            rootRect,
+            new Vector2(180f, 180f),
+            280f,
+            new Color(1f, 1f, 1f, 0.22f)
+        );
+
+        RectTransform handle = CreateJoystickCircle(
+            "Handle",
+            background,
+            Vector2.zero,
+            120f,
+            new Color(1f, 1f, 1f, 0.65f)
+        );
 
         Joystick joystick = root.GetComponent<Joystick>();
         joystick.Configure(background, handle);
@@ -297,9 +361,21 @@ public class GameClient : MonoBehaviour
         return joystick;
     }
 
-    private RectTransform CreateJoystickCircle(string name, RectTransform parent, Vector2 anchoredPosition, float size, Color color)
+    private RectTransform CreateJoystickCircle(
+        string name,
+        RectTransform parent,
+        Vector2 anchoredPosition,
+        float size,
+        Color color
+    )
     {
-        GameObject circle = new GameObject(name, typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
+        GameObject circle = new GameObject(
+            name,
+            typeof(RectTransform),
+            typeof(CanvasRenderer),
+            typeof(Image)
+        );
+
         circle.transform.SetParent(parent, false);
 
         RectTransform rect = circle.GetComponent<RectTransform>();
@@ -336,7 +412,13 @@ public class GameClient : MonoBehaviour
         }
 
         texture.Apply();
-        return Sprite.Create(texture, new Rect(0f, 0f, size, size), new Vector2(0.5f, 0.5f), size);
+
+        return Sprite.Create(
+            texture,
+            new Rect(0f, 0f, size, size),
+            new Vector2(0.5f, 0.5f),
+            size
+        );
     }
 
     void OnDestroy()
@@ -371,6 +453,7 @@ public class WorldState
     public string roomId;
     public int tick;
     public PlayerState[] players;
+    public SpawnPointState[] spawnPoints;
 }
 
 [Serializable]
@@ -381,6 +464,13 @@ public class PlayerState
     public PositionState position;
     public int hp;
     public string status;
+}
+
+[Serializable]
+public class SpawnPointState
+{
+    public string id;
+    public PositionState position;
 }
 
 [Serializable]
