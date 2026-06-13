@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 5a9981d109bf383469717465c3bec52a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 249173
+  packageName: Chinese Ink Painting
+  packageVersion: 3.2
+  assetPath: Assets/Chinese Painting/Chinese Painting URP/Setting/AutoLoadPipelineAsset.cs
+  uploadId: 846994

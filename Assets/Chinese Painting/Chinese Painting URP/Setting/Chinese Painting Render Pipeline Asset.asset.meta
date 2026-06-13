@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 28122b40c074dbe4690dcecc727e7c29
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 249173
+  packageName: Chinese Ink Painting
+  packageVersion: 3.2
+  assetPath: Assets/Chinese Painting/Chinese Painting URP/Setting/Chinese Painting
+    Render Pipeline Asset.asset
+  uploadId: 846994

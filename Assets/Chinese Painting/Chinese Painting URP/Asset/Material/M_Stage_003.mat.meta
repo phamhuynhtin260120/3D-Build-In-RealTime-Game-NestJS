@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7228c8793fc862b43a7a03ac47fefa5f
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 249173
+  packageName: Chinese Ink Painting
+  packageVersion: 3.2
+  assetPath: Assets/Chinese Painting/Chinese Painting URP/Asset/Material/M_Stage_003.mat
+  uploadId: 846994

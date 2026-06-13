@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 7b2b8c061744fc4469902056c725a78b
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 625f186215c104763be7675aa2d941aa, type: 3}
+AssetOrigin:
+  serializedVersion: 1
+  productId: 249173
+  packageName: Chinese Ink Painting
+  packageVersion: 3.2
+  assetPath: Assets/Chinese Painting/Chinese Painting URP/Asset/Shader/Waterfall.shadergraph
+  uploadId: 846994
