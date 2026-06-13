@@ -600,7 +600,7 @@
     },
     "m_ActiveTargets": [
         {
-            "m_Id": "92d04833723344a2b6587128012d2619"
+            "m_Id": "b423ca63f14a4cb7add06052c6fa0556"
         }
     ]
 }
@@ -2208,12 +2208,6 @@
 
 {
     "m_SGVersion": 0,
-    "m_Type": "UnityEditor.Rendering.Universal.ShaderGraph.UniversalUnlitSubTarget",
-    "m_ObjectId": "7955fe6f0631458ab28dfe43707e8046"
-}
-
-{
-    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "7a92b50e350944d79a9ccdb1c4772f87",
     "m_Id": 4,
@@ -2495,26 +2489,6 @@
         "m_SerializableColors": []
     },
     "m_SerializedDescriptor": "SurfaceDescription.BaseColor"
-}
-
-{
-    "m_SGVersion": 1,
-    "m_Type": "UnityEditor.Rendering.Universal.ShaderGraph.UniversalTarget",
-    "m_ObjectId": "92d04833723344a2b6587128012d2619",
-    "m_ActiveSubTarget": {
-        "m_Id": "7955fe6f0631458ab28dfe43707e8046"
-    },
-    "m_AllowMaterialOverride": false,
-    "m_SurfaceType": 1,
-    "m_ZTestMode": 4,
-    "m_ZWriteControl": 0,
-    "m_AlphaMode": 0,
-    "m_RenderFace": 0,
-    "m_AlphaClip": false,
-    "m_CastShadows": false,
-    "m_ReceiveShadows": true,
-    "m_CustomEditorGUI": "",
-    "m_SupportVFX": false
 }
 
 {
@@ -3187,6 +3161,23 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     }
+}
+
+{
+    "m_SGVersion": 2,
+    "m_Type": "UnityEditor.Rendering.BuiltIn.ShaderGraph.BuiltInTarget",
+    "m_ObjectId": "b423ca63f14a4cb7add06052c6fa0556",
+    "m_ActiveSubTarget": {
+        "m_Id": "fc97316f08e143dbb062045dfe851f70"
+    },
+    "m_AllowMaterialOverride": false,
+    "m_SurfaceType": 1,
+    "m_ZWriteControl": 0,
+    "m_ZTestMode": 4,
+    "m_AlphaMode": 0,
+    "m_RenderFace": 0,
+    "m_AlphaClip": false,
+    "m_CustomEditorGUI": ""
 }
 
 {
@@ -4420,6 +4411,12 @@
         "m_SerializableColors": []
     },
     "m_SerializedDescriptor": "SurfaceDescription.Alpha"
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.Rendering.BuiltIn.ShaderGraph.BuiltInUnlitSubTarget",
+    "m_ObjectId": "fc97316f08e143dbb062045dfe851f70"
 }
 
 {

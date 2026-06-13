@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 80482fed3a818ca428f36a31f6576f9d
+guid: 2499a1dd7d98029479857b8a5ae4c9f0
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -9,6 +9,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: M_Green_3
     second: {fileID: 2100000, guid: 3850b5754c8534c4db6e3873d311eb37, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Green_4
+    second: {fileID: 2100000, guid: be00847d2191b04499ea44dcfdd333fd, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -96,7 +101,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 1
+    globalScale: 0.01
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
@@ -112,10 +117,3 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 249173
-  packageName: Chinese Ink Painting
-  packageVersion: 3.2
-  assetPath: Assets/Chinese Painting/Chinese Painting URP/Asset/Model/SM_Rock_Green_10.FBX
-  uploadId: 846994

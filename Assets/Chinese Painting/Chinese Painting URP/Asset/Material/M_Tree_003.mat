@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 10
+  version: 5
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -21,17 +21,14 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Tree_003
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - _SPECULARHIGHLIGHTS_OFF
-  - _SURFACE_TYPE_TRANSPARENT
-  m_InvalidKeywords: []
+  m_Shader: {fileID: -6465566751694194690, guid: b5c29efb30af7c64a8feebc2b8c61308, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _BUILTIN_SURFACE_TYPE_TRANSPARENT
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 1
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: -1
   stringTagMap:
     MotionVector: User
     RenderType: Transparent
@@ -40,12 +37,15 @@ Material:
   - MOTIONVECTORS
   - DepthOnly
   - SHADOWCASTER
-  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - _AnisotropyMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Background:
+        m_Texture: {fileID: 2800000, guid: 734bef699c436d74ca2b4abbe2760abc, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseColorMap:
@@ -89,6 +89,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -168,6 +172,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Texture2D:
+        m_Texture: {fileID: 2800000, guid: f53d250d12b149748b8a80b3aec153dc, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _ThicknessMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -178,6 +186,18 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _UnlitColorMap:
         m_Texture: {fileID: 2800000, guid: f53d250d12b149748b8a80b3aec153dc, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Water_1:
+        m_Texture: {fileID: 2800000, guid: e20f512f29c99f049a72d58fe3a4729b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Water_2:
+        m_Texture: {fileID: 2800000, guid: 775d7424657aa4f449e90130e81e871e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _splash:
+        m_Texture: {fileID: 2800000, guid: 091b4acc74a88b245a1c17feaa6b0665, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -209,17 +229,29 @@ Material:
     - _AlphaSrcBlend: 1
     - _AlphaToMask: 0
     - _AlphaToMaskInspectorValue: 0
+    - _Alpha_Clip: 0.33
     - _Anisotropy: 0
+    - _BUILTIN_AlphaClip: 0
+    - _BUILTIN_Blend: 0
+    - _BUILTIN_CullMode: 0
+    - _BUILTIN_DstBlend: 10
+    - _BUILTIN_QueueControl: 1
+    - _BUILTIN_QueueOffset: 0
+    - _BUILTIN_SrcBlend: 5
+    - _BUILTIN_Surface: 1
+    - _BUILTIN_ZTest: 4
+    - _BUILTIN_ZWrite: 0
+    - _BUILTIN_ZWriteControl: 0
+    - _Background_Intensity: 0.2
     - _Blend: 0
     - _BlendMode: 0
-    - _BlendModePreserveSpecular: 0
     - _BlendOp: 0
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _CoatMask: 0
     - _ConservativeDepthOffsetEnable: 0
-    - _Cull: 0
+    - _Cull: 1
     - _CullMode: 0
     - _CullModeForward: 0
     - _Cutoff: 0
@@ -253,7 +285,6 @@ Material:
     - _DoubleSidedGIMode: 0
     - _DoubleSidedNormalMode: 0
     - _DstBlend: 10
-    - _DstBlendAlpha: 10
     - _EmissiveColorMode: 1
     - _EmissiveExposureWeight: 1
     - _EmissiveIntensity: 1
@@ -263,6 +294,10 @@ Material:
     - _EnableGeometricSpecularAA: 0
     - _EnergyConservingSpecularColor: 1
     - _EnvironmentReflections: 1
+    - _Float: 0
+    - _Flow_Offset: 5
+    - _Flow_intensity: 3.76
+    - _Flowscale: 8
     - _Fresnel: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
@@ -287,6 +322,7 @@ Material:
     - _Metallic: 0
     - _MetallicRemapMax: 1
     - _MetallicRemapMin: 0
+    - _Mode: 2
     - _Noamal_Intensity: 0
     - _NormalMapSpace: 0
     - _NormalScale: 0
@@ -316,7 +352,6 @@ Material:
     - _SpecularHighlights: 0
     - _SpecularOcclusionMode: 1
     - _SrcBlend: 5
-    - _SrcBlendAlpha: 1
     - _StencilRef: 0
     - _StencilRefDepth: 0
     - _StencilRefDistortionVec: 4
@@ -345,24 +380,33 @@ Material:
     - _UVBase: 0
     - _UVDetail: 0
     - _UVEmissive: 0
+    - _UVSec: 0
     - _UseEmissiveIntensity: 0
     - _UseShadowThreshold: 0
+    - _Water1_Intensity: 1
+    - _Water2_Intensity: 1
+    - _WindQuality: 0
     - _WorkflowMode: 1
-    - _XRMotionVectorsPass: 1
     - _ZTestDepthEqualForOpaque: 3
     - _ZTestGBuffer: 3
     - _ZTestModeDistortion: 4
     - _ZTestTransparent: 4
     - _ZWrite: 0
+    - _splash_Intensity: 1
     m_Colors:
+    - _Background_UV: {r: 1, g: 1, b: 0, a: 0}
+    - _Background_speed: {r: 0, g: 0.15, b: 0, a: 0}
     - _BaseColor: {r: 0.4542097, g: 0.5235734, b: 0.5566038, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 0.4542097, g: 0.52357334, b: 0.5566037, a: 1}
+    - _Color: {r: 0.85884655, g: 0.9011214, b: 0.9433962, a: 1}
     - _DiffusionProfileAsset: {r: 0, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: -1, g: -1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissiveColorLDR: {r: 0.6132076, g: 0.54089534, b: 0.54089534, a: 1}
+    - _Flow_Color: {r: 0.5754717, g: 0.5568848, b: 0.5021805, a: 0}
+    - _Flow_Speed: {r: 0, g: 0.5, b: 0, a: 0}
+    - _HueVariation: {r: 1, g: 0.5, b: 0, a: 0.1}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
@@ -374,8 +418,26 @@ Material:
     - _UVMappingMaskEmissive: {r: 1, g: 0, b: 0, a: 0}
     - _UnlitColor: {r: 0.77254903, g: 0.88417894, b: 0.93333334, a: 1}
     - _UnlitColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
+    - _Water1_UV: {r: 1, g: 1, b: 0, a: 0}
+    - _Water2_UV: {r: 1, g: 1, b: 0, a: 0}
+    - _Water_1_speed: {r: 0, g: 0.6, b: 0, a: 0}
+    - _Water_2_speed: {r: 0, g: 0.5, b: 0, a: 0}
+    - _splash_UV: {r: 1, g: 1, b: 0, a: 0}
+    - _splash_speed: {r: 0, g: 0.5, b: 0, a: 0}
   m_BuildTextureStacks: []
-  m_AllowLocking: 1
+--- !u!114 &6841790256008547978
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 639247ca83abc874e893eb93af2b5e44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 0
 --- !u!114 &8859648580040325661
 MonoBehaviour:
   m_ObjectHideFlags: 11

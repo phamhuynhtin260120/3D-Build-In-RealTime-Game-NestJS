@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6328547189903114895
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 639247ca83abc874e893eb93af2b5e44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 0
 --- !u!114 &-5879741001834805165
 MonoBehaviour:
   m_ObjectHideFlags: 11
@@ -25,8 +38,6 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Waterfall_001
   m_Shader: {fileID: -6465566751694194690, guid: 7b2b8c061744fc4469902056c725a78b, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -41,7 +52,6 @@ Material:
   - TransparentBackface
   - RayTracingPrepass
   - MOTIONVECTORS
-  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -178,6 +188,8 @@ Material:
     - _AlphaToMask: 0
     - _AlphaToMaskInspectorValue: 0
     - _Anisotropy: 0
+    - _BUILTIN_QueueControl: 1
+    - _BUILTIN_QueueOffset: 0
     - _Background_Intensity: 1
     - _BlendMode: 0
     - _CoatMask: 0
@@ -298,7 +310,7 @@ Material:
     - _Background_speed: {r: 0, g: 0.2, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 0.62411004, g: 0.7075472, b: 0.6916544, a: 1}
+    - _Color: {r: 0.50671947, g: 0.5566038, b: 0.5530406, a: 1}
     - _DiffusionProfileAsset: {r: 0, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
@@ -325,7 +337,6 @@ Material:
     - _splash_UV: {r: 1, g: 3, b: 0, a: 0}
     - _splash_speed: {r: 0, g: 3, b: 0, a: 0}
   m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!114 &7984587050382659809
 MonoBehaviour:
   m_ObjectHideFlags: 11
@@ -338,4 +349,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 10
+  version: 5

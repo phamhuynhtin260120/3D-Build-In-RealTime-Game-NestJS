@@ -9,14 +9,12 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Painting_004
   m_Shader: {fileID: -6465566751694194690, guid: b4e97ae128580604ca3da59a207f3eb6, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2225
   stringTagMap:
     MotionVector: User
   disabledShaderPasses:
@@ -25,7 +23,6 @@ Material:
   - TransparentBackface
   - RayTracingPrepass
   - MOTIONVECTORS
-  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -195,6 +192,8 @@ Material:
     - _AlphaToMask: 0
     - _AlphaToMaskInspectorValue: 0
     - _Anisotropy: 0
+    - _BUILTIN_QueueControl: 1
+    - _BUILTIN_QueueOffset: 0
     - _Blend: 0
     - _BlendMode: 0
     - _BumpScale: 1
@@ -253,6 +252,7 @@ Material:
     - _Metallic: 0
     - _MetallicRemapMax: 1
     - _MetallicRemapMin: 0
+    - _Mode: 0
     - _Noamal_Intensity: 0.5
     - _NormalMapSpace: 0
     - _NormalScale: 1
@@ -265,7 +265,6 @@ Material:
     - _PPDPrimitiveLength: 1
     - _PPDPrimitiveWidth: 1
     - _Parallax: 0.005
-    - _QueueControl: 0
     - _QueueOffset: 0
     - _RayTracing: 0
     - _ReceiveShadows: 1
@@ -311,6 +310,7 @@ Material:
     - _UVBase: 0
     - _UVDetail: 0
     - _UVEmissive: 0
+    - _UVSec: 0
     - _UseEmissiveIntensity: 0
     - _UseShadowThreshold: 0
     - _WorkflowMode: 1
@@ -321,8 +321,8 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
-    - _Base_Map_Color: {r: 0.6627451, g: 0.7254902, b: 0.7058824, a: 0}
-    - _Color: {r: 0.08235294, g: 0.08235294, b: 0.08627451, a: 1}
+    - _Base_Map_Color: {r: 0.66131186, g: 0.7264151, b: 0.70607036, a: 0}
+    - _Color: {r: 0.039215688, g: 0.043137256, b: 0.047058824, a: 1}
     - _DiffusionProfileAsset: {r: 0, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
@@ -340,7 +340,6 @@ Material:
     - _UV_Offset: {r: 0, g: 0, b: 0, a: 0}
     - _UV_Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!114 &5349655111953842868
 MonoBehaviour:
   m_ObjectHideFlags: 11
@@ -357,6 +356,19 @@ MonoBehaviour:
   hdPluginSubTargetMaterialVersions:
     m_Keys: []
     m_Values: 
+--- !u!114 &6560012363866904908
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 639247ca83abc874e893eb93af2b5e44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 0
 --- !u!114 &8654222835206366832
 MonoBehaviour:
   m_ObjectHideFlags: 11
@@ -369,4 +381,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 10
+  version: 5

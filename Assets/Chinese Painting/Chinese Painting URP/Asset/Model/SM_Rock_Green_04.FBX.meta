@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5d0ce954c3da4e6489d7852f06471445
+guid: d54376bedf31f7243b55ee5f68e9a1df
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -112,10 +112,3 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 249173
-  packageName: Chinese Ink Painting
-  packageVersion: 3.2
-  assetPath: Assets/Chinese Painting/Chinese Painting URP/Asset/Model/SM_Rock_Green_04.FBX
-  uploadId: 846994
